@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PolicyHandler{
+
+    @Autowired
+    StockRepository stockRepository;
+
     @StreamListener(KafkaProcessor.INPUT)
     public void onStringEventListener(@Payload String eventString){
 
@@ -25,8 +29,11 @@ public class PolicyHandler{
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverRentAccepted_StockCheck(@Payload RentAccepted rentAccepted){
 
+        //ACCEPTED로 승인이벤트가 발생하면 지정된 마우스id의 잔여 qty를 확인함
         if(rentAccepted.isMe()){
-            System.out.println("##### listener StockCheck : " + rentAccepted.toJson());
+            //System.out.println("##### listener StockCheck : " + rentAccepted.toJson());
+
+
         }
     }
 
